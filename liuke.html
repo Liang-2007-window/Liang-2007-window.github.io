@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刘克的个人主页</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, #FFF5E1 0%, #FFE8D6 20%, #FFDEE9 40%, #E8F5E9 60%, #E3F2FD 80%, #F3E5F5 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 12s ease infinite;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  @keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .container {
+    max-width: 720px;
+    width: 100%;
+  }
+
+  /* ---- Hero ---- */
+  .hero {
+    background: #fff;
+    border-radius: 24px;
+    padding: 48px 40px;
+    box-shadow: 0 8px 40px rgba(255, 140, 100, 0.15);
+    text-align: center;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #FF6B6B, #FFA94D, #FFD43B, #69DB7C, #74C0FC, #DA77F2);
+    border-radius: 24px 24px 0 0;
+  }
+
+  .avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #74C0FC, #4DABF7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 52px;
+    color: #fff;
+  }
+
+  .hero h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2D3436;
+    margin-bottom: 6px;
+  }
+
+  .hero .tagline {
+    font-size: 15px;
+    color: #339AF0;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .hero .bio {
+    font-size: 15px;
+    color: #636E72;
+    line-height: 1.8;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ---- Section Cards ---- */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+    .hero { padding: 36px 24px; }
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px 28px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+
+  .card h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2D3436;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card h2 .icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  /* ---- About Card ---- */
+  .about-card .icon { background: linear-gradient(135deg, #FF6B6B, #FF8E8E); }
+
+  .about-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .about-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 14px;
+    color: #555;
+  }
+
+  .about-list .label {
+    font-weight: 600;
+    color: #FF6B6B;
+    white-space: nowrap;
+    min-width: 56px;
+  }
+
+  .about-list .value {
+    color: #636E72;
+    line-height: 1.5;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .tag {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .tag-pink  { background: #FFE3E3; color: #FF6B6B; }
+  .tag-orange{ background: #FFF0E0; color: #F08C00; }
+  .tag-green { background: #E6F9E8; color: #40C057; }
+  .tag-blue  { background: #E7F5FF; color: #339AF0; }
+  .tag-purple{ background: #F3E5FF; color: #9775FA; }
+
+  /* ---- Tutoring Card ---- */
+  .tutor-card { grid-column: 1 / -1; }
+
+  @media (max-width: 600px) {
+    .tutor-card { grid-column: 1; }
+  }
+
+  .tutor-card .icon { background: linear-gradient(135deg, #FFA94D, #FFC078); }
+
+  .subject-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+  }
+
+  .subject-item {
+    background: #FFF9F0;
+    border-radius: 12px;
+    padding: 14px 12px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #E67700;
+    transition: transform 0.2s;
+  }
+
+  .subject-item:hover { transform: translateY(-2px); }
+
+  .subject-item .emoji { font-size: 22px; display: block; margin-bottom: 6px; }
+
+  .tutor-note {
+    margin-top: 16px;
+    padding: 14px 18px;
+    background: #FFF4E6;
+    border-radius: 12px;
+    font-size: 14px;
+    color: #E67700;
+    line-height: 1.6;
+  }
+
+  /* ---- Contact Card ---- */
+  .contact-card .icon { background: linear-gradient(135deg, #69DB7C, #8CE99A); }
+
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .qq-highlight {
+    background: linear-gradient(135deg, #E8F5E9, #F0FFF0);
+    border: 2px solid #69DB7C;
+    border-radius: 16px;
+    padding: 20px 24px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .qq-highlight .qq-label {
+    font-size: 13px;
+    color: #40C057;
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .qq-highlight .qq-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2D3436;
+    letter-spacing: 2px;
+  }
+
+  .qq-highlight .qq-hint {
+    font-size: 12px;
+    color: #868E96;
+    margin-top: 6px;
+  }
+
+  .qr-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .qr-code {
+    width: 140px;
+    height: 140px;
+    background: #F8F9FA;
+    border: 2px dashed #DEE2E6;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .qr-placeholder {
+    text-align: center;
+    color: #ADB5BD;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .qr-placeholder .qr-icon {
+    font-size: 36px;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 12px;
+  }
+
+  .contact-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #fff;
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+
+  .contact-link:hover { transform: scale(1.1); }
+  .link-qq    { background: #69DB7C; }
+  .link-email { background: #FFA94D; }
+  .link-phone { background: #74C0FC; }
+
+  /* ---- Footer ---- */
+  .footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    color: #ADB5BD;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="avatar">📚</div>
+    <h1>你好，我是刘克</h1>
+    <p class="tagline">淮南师范学院 · 英语师范专业 · 大二在读</p>
+    <p class="bio">
+      英语师范专业在读，耐心细致，善于与中小学生沟通。
+      课余时间提供家教辅导，帮助学生夯实基础、提升成绩。
+    </p>
+  </section>
+
+  <!-- Grid -->
+  <div class="grid">
+
+    <!-- 自我介绍 -->
+    <section class="card about-card">
+      <h2><span class="icon">🙋</span> 自我介绍</h2>
+      <ul class="about-list">
+        <li>
+          <span class="label">姓名</span>
+          <span class="value">刘克</span>
+        </li>
+        <li>
+          <span class="label">性别</span>
+          <span class="value">男</span>
+        </li>
+        <li>
+          <span class="label">年龄</span>
+          <span class="value">21 岁</span>
+        </li>
+        <li>
+          <span class="label">学校</span>
+          <span class="value">淮南师范学院</span>
+        </li>
+        <li>
+          <span class="label">专业</span>
+          <span class="value">英语师范</span>
+        </li>
+        <li>
+          <span class="label">年级</span>
+          <span class="value">大二</span>
+        </li>
+        <li>
+          <span class="label">擅长</span>
+          <span class="value">
+            <div class="tag-row">
+              <span class="tag tag-pink">🇬🇧 英语辅导</span>
+              <span class="tag tag-orange">📖 语文阅读</span>
+              <span class="tag tag-green">🧮 数学基础</span>
+              <span class="tag tag-blue">🔬 作业陪练</span>
+              <span class="tag tag-purple">🎯 考前冲刺</span>
+            </div>
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 联系方式 -->
+    <section class="card contact-card">
+      <h2><span class="icon">📬</span> 联系我</h2>
+
+      <div class="qq-highlight">
+        <div class="qq-label">📱 QQ</div>
+        <div class="qq-number">1971980770</div>
+        <div class="qq-hint">添加请备注：家教咨询</div>
+      </div>
+
+      <div class="qr-wrapper">
+        <div class="qr-code">
+          <div class="qr-placeholder">
+            <span class="qr-icon">📱</span>
+            QQ / 微信二维码<br>（替换为图片）
+          </div>
+        </div>
+        <div class="contact-links">
+          <a href="https://wpa.qq.com/msgrd?v=3&uin=1971980770&site=qq&menu=yes" class="contact-link link-qq" title="QQ聊天" target="_blank">💬</a>
+          <a href="mailto:1971980770@qq.com" class="contact-link link-email" title="邮箱">✉️</a>
+          <a href="#" class="contact-link link-phone" title="电话">📞</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 家教服务 -->
+    <section class="card tutor-card">
+      <h2><span class="icon">✏️</span> 家教辅导</h2>
+      <div class="subject-grid">
+        <div class="subject-item">
+          <span class="emoji">🇬🇧</span>英语
+        </div>
+        <div class="subject-item">
+          <span class="emoji">📐</span>数学
+        </div>
+        <div class="subject-item">
+          <span class="emoji">📖</span>语文
+        </div>
+        <div class="subject-item">
+          <span class="emoji">🔬</span>科学
+        </div>
+        <div class="subject-item">
+          <span class="emoji">📝</span>作业辅导
+        </div>
+        <div class="subject-item">
+          <span class="emoji">🎯</span>考前冲刺
+        </div>
+      </div>
+      <div class="tutor-note">
+        ✨ 面向<strong>中小学生</strong>，各科目均可辅导。支持线上 / 上门教学，时间灵活，因材施教，帮助学生找到适合自己的学习方法。
+      </div>
+    </section>
+
+  </div>
+
+  <p class="footer">© 2026 刘克 · 期待与你相遇</p>
+
+</div>
+
+</body>
+</html>
